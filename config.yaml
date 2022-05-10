@@ -1,0 +1,5 @@
+HOST: '127.0.0.1' # loop back
+SERVER_PORT: 55452 # should be > 50000
+FORMAT: 'utf8'
+
+data: 'data/phonebook.json'
