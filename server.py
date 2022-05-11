@@ -1,8 +1,8 @@
 import socket
-from utils import read_config, read_json, send_dict
+from utils import read_config, read_json, send_dict, send_file
 
 cfg = read_config('config.yaml')
-phone_book_data = read_json('data/phonebook.json')
+phone_book_data = read_json('server_data/phonebook.json')
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP
 
@@ -25,3 +25,5 @@ while msg != "close":
     print("Client", addr, "sent:", msg)
     if msg == "get_data":
         send_dict(connection, phone_book_data, cfg['FORMAT'])
+    if msg == "get_file":
+        send_file(connection, 'server_data/ameo.jpg', cfg['FORMAT'], BUFFER_SIZE=cfg['BUFFER_SIZE'])
