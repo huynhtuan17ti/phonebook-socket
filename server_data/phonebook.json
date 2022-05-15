@@ -1,30 +1,34 @@
 {
     "p01": {
+        "user_id": "p01",
         "name": "Kkura",
         "phone": "0357933544",
         "gender": "Male",
-        "thumnail": "",
+        "thumnail": "server_data/thumnails/thumnail_01.jpg",
         "image": ""
     },
     "p02": {
-        "name": "Kkura1",
-        "phone": "0357933544",
+        "user_id": "p02",
+        "name": "Tuan Huynh",
+        "phone": "01111",
         "gender": "Male",
-        "thumnail": "",
+        "thumnail": "server_data/thumnails/thumnail_02.jpg",
         "image": ""
     },
     "p03": {
-        "name": "Kkura2",
-        "phone": "0357933544",
+        "user_id": "p03",
+        "name": "Jonny Nude",
+        "phone": "0999999",
         "gender": "Male",
-        "thumnail": "",
+        "thumnail": "server_data/thumnails/thumnail_03.jpg",
         "image": ""
     },
     "p04": {
-        "name": "Kkura3",
-        "phone": "0357933544",
+        "user_id": "p04",
+        "name": "KOL Papa",
+        "phone": "012345678",
         "gender": "Female",
-        "thumnail": "",
+        "thumnail": "server_data/thumnails/thumnail_04.jpg",
         "image": ""
     }
 }

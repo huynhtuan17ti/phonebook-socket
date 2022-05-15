@@ -12,7 +12,14 @@ def read_json(json_file: str):
     with open(json_file) as f:
         return json.load(f)
 
-def send_dict(connection, data_dict: Dict, encode_format: str, key: str = None):
+def wait_response(connection, decode_format):
+    if not connection.recv(1024).decode(decode_format) == 'received':
+        print('[ERROR] Client not repsonding!')
+
+def answer_response(connection, encode_format):
+    connection.send("received".encode(encode_format))
+
+def send_dict(connection, data_dict: Dict, encode_format: str):
     '''
         Send a dictionary object via connection
         ----------
@@ -21,14 +28,23 @@ def send_dict(connection, data_dict: Dict, encode_format: str, key: str = None):
             - connection: connection is used to send
             - data_dict: dictionary object
             - encode_format: used in encoding
-            - key: default is None -> sending all data, else sending data of a key.
     '''
-    if key == None:
-        data_string = json.dumps(data_dict)
-    else:
-        data_string = json.dumps(data_dict[key])
-
+    data_string = json.dumps(data_dict)
     connection.sendall(data_string.encode(encode_format))
+    wait_response(connection, encode_format)
+
+def receive_dict(connection, decode_format: str):
+    '''
+        Receive a dictionary object via connection
+        ----------
+        Parameters
+        ----------
+            - connection: connection is used to send
+            - decode_format: used in decoding
+    '''
+    data = connection.recv(1024).decode(decode_format)
+    answer_response(connection, decode_format)
+    return json.loads(data)
 
 def send_file(connection, file_path: str, encode_format: str, BUFFER_SIZE: int = 1024):
     '''
@@ -41,10 +57,11 @@ def send_file(connection, file_path: str, encode_format: str, BUFFER_SIZE: int =
             - encode_format: used in encoding
             - BUFFER_SIZE: maximum capacity sent of a single iteration
     '''
-    print(f'Sending {file_path} ...', end=' ')
+    print(f'[-] Sending {file_path} ...', end=' ')
     file_size = os.path.getsize(file_path)
     # send file name and file size
     connection.send(f"{file_path.split('/')[-1]} {file_size}".encode(encode_format))
+    wait_response(connection, encode_format)
     with open(file_path, "rb") as f:
         while True:
             # read the bytes from the file
@@ -55,6 +72,7 @@ def send_file(connection, file_path: str, encode_format: str, BUFFER_SIZE: int =
             # we use sendall to assure transimission in 
             # busy networks
             connection.sendall(bytes_read)
+    wait_response(connection, encode_format)
     print('Successfully!')
 
 def recieve_file(connection, file_dir: str, decode_format: str, BUFFER_SIZE: int = 1024):
@@ -65,12 +83,14 @@ def recieve_file(connection, file_dir: str, decode_format: str, BUFFER_SIZE: int
         ----------
             - connection: connection is used to send
             - file_dir: directory to save the file
-            - encode_format: used in encoding
+            - decode_format: used in decoding
             - BUFFER_SIZE: maximum capacity sent of a single iteration
     '''
     received = connection.recv(BUFFER_SIZE).decode(decode_format)
-    print(f'Receiving ...', end=' ')
+    answer_response(connection, decode_format)
+    print(f'[+] Receiving', end=' ')
     file_path, file_size = received.split()
+    print(f'{file_path} from server ...', end=' ')
     file_size = int(file_size)
     total_size = 0
     with open(os.path.join(file_dir, file_path), "wb") as f:
@@ -81,4 +101,5 @@ def recieve_file(connection, file_dir: str, decode_format: str, BUFFER_SIZE: int
             bytes_read = connection.recv(BUFFER_SIZE)
             total_size += len(bytes_read)
             f.write(bytes_read)
+    answer_response(connection, decode_format)
     print(f'Successfully!')

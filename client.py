@@ -1,23 +1,31 @@
+'''
+    TODO:
+    - Design UI
+    - Login, signup for client
+''' 
 import socket
-import json
-from utils import read_config, recieve_file
+from client_utils import *
 
-cfg = read_config('config.yaml')
+if __name__ == '__main__':
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP
+    print("[CLIENT SIDE]")
+    client.connect((cfg['HOST'], cfg['SERVER_PORT']))
+    print('Client address:', client.getsockname())
+    print('='*40)
+    welcome_msg = client.recv(1024).decode(cfg['FORMAT'])
+    answer_response(client, cfg['FORMAT'])
+    print(welcome_msg)
 
-print("[CLIENT SIDE]")
-client.connect((cfg['HOST'], cfg['SERVER_PORT']))
-print('Client address:', client.getsockname())
+    msg = None
+    while msg != "close":
+        request = client.recv(1024).decode(cfg['FORMAT'])
+        print(request)
+        msg = input("input: ")
+        if msg == "phone_book_data":
+            data = ask_phone_book_data(client)
+            print(data)
+        if msg == "close":
+            client.sendall("close".encode(cfg['FORMAT']))
 
-msg = None
-while msg != "close":
-    msg = input("input: ")
-    client.sendall(msg.encode(cfg['FORMAT']))
-    if msg in ['get_data', 'close']:
-        data = client.recv(1024).decode(cfg['FORMAT'])
-    if msg == 'get_file':
-        recieve_file(client, 'client_data', cfg['FORMAT'], BUFFER_SIZE=cfg['BUFFER_SIZE'])
-
-
-client.close()
+    client.close()
