@@ -49,10 +49,22 @@ def handle_client(client, client_address):
             msg = client.recv(1024).decode(cfg['FORMAT'])
             print(client_address, ': ', msg)
 
-            if msg == "all_data":
+            if msg == "all data":
                 send_phone_book_data(client)
+                
+            if msg == 'all thumbnails':
+                send_thumbnails(client)
+            
             if msg == "close":
                 raise Exception('Client closed!')
+            
+            token = msg.split()
+            if token[0] == 'detail':
+                send_user_interface(client, token[1])
+                
+            if token[0] == 'image':
+                send_user_image(client, token[1])
+            
     except:
         # Client disconnected to server
         msg = "%s: %s has disconnected." % client_address

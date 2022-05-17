@@ -6,8 +6,31 @@
 import socket
 from client_utils import *
 
+def display_all(connection):
+    data = ask_phone_book_data(connection)
+    for item in data:
+        print(item)
+    
+    print('='*40)
+    while True:
+        user_input = input('>> ')
+        if user_input == 'back':
+            break        
+        
+        if user_input == 'download thumbnails':
+            receive_thumbnails(connection)
+            continue
+        
+        token = user_input.split()
+        
+        if token[0] == 'query':
+            ask_person_data(connection, token[1])
+            
+        
 if __name__ == '__main__':
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP
+
+    print(cfg)
 
     print("[CLIENT SIDE]")
     client.connect((cfg['HOST'], cfg['SERVER_PORT']))
@@ -17,15 +40,16 @@ if __name__ == '__main__':
     answer_response(client, cfg['FORMAT'])
     print(welcome_msg)
 
-    msg = None
-    while msg != "close":
-        request = client.recv(1024).decode(cfg['FORMAT'])
-        print(request)
-        msg = input("input: ")
-        if msg == "phone_book_data":
-            data = ask_phone_book_data(client)
-            print(data)
-        if msg == "close":
-            client.sendall("close".encode(cfg['FORMAT']))
+    while True:        
+        user_input = input('> ')
+        
+        if user_input == 'login':
+            display_all(client)
+            
+        if user_input == 'exit':
+            client.recv(1024).decode(cfg['FORMAT'])
+            client.sendall('close'.encode(cfg['FORMAT']))
+            break
+        
 
     client.close()

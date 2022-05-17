@@ -75,7 +75,7 @@ def send_file(connection, file_path: str, encode_format: str, BUFFER_SIZE: int =
     wait_response(connection, encode_format)
     print('Successfully!')
 
-def recieve_file(connection, file_dir: str, decode_format: str, BUFFER_SIZE: int = 1024):
+def receive_file(connection, file_dir: str, decode_format: str, BUFFER_SIZE: int = 1024):
     '''
         Receive a file via connection
         ----------
