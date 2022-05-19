@@ -9,11 +9,27 @@ def send_phone_book_data(connection):
         send_user_interface(connection, user_id)
         
 def send_user_interface(connection, user_id: str):
+    if user_id not in phone_book_data.keys():
+        connection.sendall('false'.encode(cfg['FORMAT']))
+        return
+    
+    connection.sendall('true'.encode(cfg['FORMAT']))
     send_dict(connection, phone_book_data[user_id], cfg['FORMAT'])
-    send_user_thumnail(connection, user_id)
 
-def send_user_thumnail(connection, user_id: str):
+def send_user_thumbnail(connection, user_id: str):
     send_file(connection, phone_book_data[user_id]['thumnail'], cfg['FORMAT'], cfg['BUFFER_SIZE'])
 
-def send_user_image(connection, user_id: str):
+def send_user_image(connection, user_id: str):    
+    if user_id not in phone_book_data.keys():
+        connection.sendall('false'.encode(cfg['FORMAT']))
+        return
+    
+    connection.sendall('true'.encode(cfg['FORMAT']))
     send_file(connection, phone_book_data[user_id]['image'], cfg['FORMAT'], cfg['BUFFER_SIZE'])
+    
+def send_thumbnails(connection):
+    connection.sendall(f'{len(phone_book_data)}'.encode(cfg['FORMAT']))
+    wait_response(connection, cfg['FORMAT'])
+    
+    for user_id in phone_book_data.keys():
+        send_user_thumbnail(connection, user_id)

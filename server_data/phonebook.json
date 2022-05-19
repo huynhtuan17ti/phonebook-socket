@@ -5,7 +5,7 @@
         "phone": "0357933544",
         "gender": "Male",
         "thumnail": "server_data/thumnails/thumnail_01.jpg",
-        "image": ""
+        "image": "server_data/images/temp.jpg"
     },
     "p02": {
         "user_id": "p02",
@@ -13,7 +13,7 @@
         "phone": "01111",
         "gender": "Male",
         "thumnail": "server_data/thumnails/thumnail_02.jpg",
-        "image": ""
+        "image": "server_data/images/temp.jpg"
     },
     "p03": {
         "user_id": "p03",
@@ -21,7 +21,7 @@
         "phone": "0999999",
         "gender": "Male",
         "thumnail": "server_data/thumnails/thumnail_03.jpg",
-        "image": ""
+        "image": "server_data/images/temp.jpg"
     },
     "p04": {
         "user_id": "p04",
@@ -29,6 +29,6 @@
         "phone": "012345678",
         "gender": "Female",
         "thumnail": "server_data/thumnails/thumnail_04.jpg",
-        "image": ""
+        "image": "server_data/images/temp.jpg"
     }
 }
