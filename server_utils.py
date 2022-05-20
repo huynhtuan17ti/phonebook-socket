@@ -9,11 +9,6 @@ def send_phone_book_data(connection):
         send_user_interface(connection, user_id)
         
 def send_user_interface(connection, user_id: str):
-    if user_id not in phone_book_data.keys():
-        connection.sendall('false'.encode(cfg['FORMAT']))
-        return
-    
-    connection.sendall('true'.encode(cfg['FORMAT']))
     send_dict(connection, phone_book_data[user_id], cfg['FORMAT'])
 
 def send_user_thumbnail(connection, user_id: str):
