@@ -13,15 +13,13 @@ def read_json(json_file: str):
         return json.load(f)
 
 def wait_response(connection, decode_format):
-    print('cai nay o wait response')
     st = connection.recv(1024).decode(decode_format)
-    print(st)
     if not st == 'received':
         print('[ERROR] Client not repsonding!')
 
 def answer_response(connection, encode_format):
     print('dang o answer response')
-    connection.send("received".encode(encode_format))
+    connection.sendall("received".encode(encode_format))
     print('cai nay da gui qua roi nay')
 
 def send_dict(connection, data_dict: Dict, encode_format: str):
@@ -110,7 +108,5 @@ def receive_file(connection, file_dir: str, decode_format: str, BUFFER_SIZE: int
             # answer_response(connection, decode_format)
             total_size += len(bytes_read)
             f.write(bytes_read)
-            print('size: ' + str(total_size))
-    print('????????????????????')
+
     answer_response(connection, decode_format)
-    print(f'Successfully!')
