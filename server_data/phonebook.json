@@ -4,31 +4,44 @@
         "name": "Kkura",
         "phone": "0357933544",
         "gender": "Male",
-        "thumnail": "server_data/thumnails/thumnail_01.jpg",
-        "image": "server_data/images/temp.jpg"
+        "email": "kkura0889@gmail.com",
+        "thumbnail": "server_data/thumbnails/thumbnail_0.png",
+        "image": "server_data/images/image_0.png"
     },
     "p02": {
         "user_id": "p02",
         "name": "Tuan Huynh",
-        "phone": "01111",
+        "phone": "0457988544",
         "gender": "Male",
-        "thumnail": "server_data/thumnails/thumnail_02.jpg",
-        "image": "server_data/images/temp.jpg"
+        "email": "huynhminhtuan6429@gmail.com",
+        "thumbnail": "server_data/thumbnails/thumbnail_1.png",
+        "image": "server_data/images/image_1.png"
     },
     "p03": {
         "user_id": "p03",
-        "name": "Jonny Nude",
-        "phone": "0999999",
+        "name": "Jonny Dang",
+        "phone": "0117931511",
         "gender": "Male",
-        "thumnail": "server_data/thumnails/thumnail_03.jpg",
-        "image": "server_data/images/temp.jpg"
+        "email": "jonnydang@yahoo.com",
+        "thumbnail": "server_data/thumbnails/thumbnail_2.png",
+        "image": "server_data/images/image_2.png"
     },
     "p04": {
         "user_id": "p04",
-        "name": "KOL Papa",
-        "phone": "012345678",
+        "name": "KOL admin",
+        "phone": "022789533",
         "gender": "Female",
-        "thumnail": "server_data/thumnails/thumnail_04.jpg",
-        "image": "server_data/images/temp.jpg"
+        "email": "KOL@pog.ai",
+        "thumbnail": "server_data/thumbnails/thumbnail_3.png",
+        "image": "server_data/images/image_3.png"
+    },
+    "p05": {
+        "user_id": "p05",
+        "name": "Itadori Shinji",
+        "phone": "0669996699",
+        "gender": "Male",
+        "email": "Eva@adam.neon",
+        "thumbnail": "server_data/thumbnails/thumbnail_4.png",
+        "image": "server_data/images/image_4.png"
     }
 }
