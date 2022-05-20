@@ -2,10 +2,6 @@ from utils import read_config, receive_file, answer_response, receive_dict
 from read import cfg
 
 def receive_user_interface(connection):
-    exist = connection.recv(1024).decode(cfg['FORMAT'])
-    if exist == 'false':
-        return {}
-    
     user_data = receive_dict(connection, cfg['FORMAT'])
     return user_data
 
