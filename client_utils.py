@@ -64,9 +64,10 @@ def receive_thumbnails(connection):
     
     data_length = int(connection.recv(1024).decode(cfg['FORMAT']))
     answer_response(connection, cfg['FORMAT'])
-    
+
+    cnt = 0
     for _ in range(data_length):
-        receive_file(connection, 'client_data/thumbnails', cfg['FORMAT'], cfg['BUFFER_SIZE'])
+        receive_file(connection, 'client_data/thumnails', cfg['FORMAT'], cfg['BUFFER_SIZE'])
         
 def display_all(connection):
     data = ask_phone_book_data(connection)

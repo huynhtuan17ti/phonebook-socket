@@ -13,11 +13,12 @@ def read_json(json_file: str):
         return json.load(f)
 
 def wait_response(connection, decode_format):
-    if not connection.recv(1024).decode(decode_format) == 'received':
+    st = connection.recv(1024).decode(decode_format)
+    if not st == 'received':
         print('[ERROR] Client not repsonding!')
 
 def answer_response(connection, encode_format):
-    connection.send("received".encode(encode_format))
+    connection.sendall("received".encode(encode_format))
 
 def send_dict(connection, data_dict: Dict, encode_format: str):
     '''
@@ -72,6 +73,8 @@ def send_file(connection, file_path: str, encode_format: str, BUFFER_SIZE: int =
             # we use sendall to assure transimission in 
             # busy networks
             connection.sendall(bytes_read)
+            # wait_response(connection, encode_format)
+
     wait_response(connection, encode_format)
     print('Successfully!')
 
@@ -99,7 +102,9 @@ def receive_file(connection, file_dir: str, decode_format: str, BUFFER_SIZE: int
                 break
             # read BUFFER_SIZE bytes from the socket (receive)
             bytes_read = connection.recv(BUFFER_SIZE)
+            # answer_response(connection, decode_format)
             total_size += len(bytes_read)
             f.write(bytes_read)
+
     answer_response(connection, decode_format)
-    print(f'Successfully!')
+    print('Successfully!')
