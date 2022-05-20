@@ -46,6 +46,9 @@ def ask_person_data(connection, person_id):
     
     print(data)
     
+    if not data:
+        return
+    
     while True:
         user_input = input('>>> ')
         
@@ -68,3 +71,23 @@ def receive_thumbnails(connection):
     
     for _ in range(data_length):
         receive_file(connection, 'client_data/thumbnails', cfg['FORMAT'], cfg['BUFFER_SIZE'])
+        
+def display_all(connection):
+    data = ask_phone_book_data(connection)
+    for item in data:
+        print(item)
+    
+    print('='*40)
+    while True:
+        user_input = input('>> ')
+        if user_input == 'back':
+            break        
+        
+        if user_input == 'download thumbnails':
+            receive_thumbnails(connection)
+            continue
+        
+        token = user_input.split()
+        
+        if token[0] == 'query':
+            ask_person_data(connection, token[1])
