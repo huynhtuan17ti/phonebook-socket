@@ -93,7 +93,7 @@ class ServerApp(tk.Tk):
 
         # Lấy thông tin {hostname} và {ip_address} của thiết bị sử dụng làm server
         hostname = sk.gethostname()
-        ip_address = sk.gethostbyname(hostname)
+        ip_address = sk.gethostbyname("")
 
         # In ra màn hình giao diện của server
         hostname_label = tk.Label(self, text=f"Hostname: {hostname}")
