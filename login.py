@@ -5,26 +5,26 @@ import socket
 from client_utils import *
 
 class Ui_Login(object):
-    def open_phonebook(self):
+    def open_phonebook(self, parent):
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TCP
         try:
-            ip_addr = self.ip.toPlainText()
-            port_num = int(self.port.toPlainText())
+            ip_addr = self.ip.text()
+            port_num = int(self.port.text())
             client.connect((ip_addr, port_num))
-            welcome_msg = client.recv(1024).decode(cfg['FORMAT'])
-            answer_response(client, cfg['FORMAT'])
+            client.recv(1024).decode(cfg['FORMAT']) # get response
+            answer_response(client, cfg['FORMAT']) # answer response
+            
             self.window = QtWidgets.QDialog()
             self.ui = Ui_Phonebook()
             self.ui.setupUi(self.window, client)
             self.window.show()
             Login.close()
-            return
         except:
-            return
+            QtWidgets.QMessageBox.about(parent, "Notification !!!", "Wrong IP Address or Port !!!")
 
     def setupUi(self, Login):
         Login.setObjectName("Login")
-        Login.resize(350, 433)
+        Login.resize(350, 397)
         self.centralwidget = QtWidgets.QWidget(Login)
         self.centralwidget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.centralwidget.setStyleSheet("")
@@ -47,7 +47,7 @@ class Ui_Login(object):
         self.icon.setStyleSheet("border-radius: 30px;")
         self.icon.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../icons/1946429.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("./icons/ic.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.icon.setIcon(icon)
         self.icon.setIconSize(QtCore.QSize(100, 100))
         self.icon.setFlat(True)
@@ -59,26 +59,27 @@ class Ui_Login(object):
         self.frame02.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame02.setObjectName("frame02")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.frame02)
+        self.verticalLayout_2.setSpacing(15)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.ip = QtWidgets.QTextEdit(self.frame02)
+        self.ip = QtWidgets.QLineEdit(self.frame02)
         self.ip.setMinimumSize(QtCore.QSize(0, 40))
         self.ip.setMaximumSize(QtCore.QSize(16777215, 40))
         font = QtGui.QFont()
-        font.setPointSize(24)
+        font.setFamily("Arial")
+        font.setPointSize(18)
         self.ip.setFont(font)
-        self.ip.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
         self.ip.setObjectName("ip")
         self.verticalLayout_2.addWidget(self.ip)
-        self.port = QtWidgets.QTextEdit(self.frame02)
+        self.port = QtWidgets.QLineEdit(self.frame02)
         self.port.setMinimumSize(QtCore.QSize(0, 40))
         self.port.setMaximumSize(QtCore.QSize(16777215, 40))
         font = QtGui.QFont()
-        font.setPointSize(24)
+        font.setFamily("Arial")
+        font.setPointSize(18)
         self.port.setFont(font)
-        self.port.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
         self.port.setObjectName("port")
         self.verticalLayout_2.addWidget(self.port)
-        self.login = QtWidgets.QPushButton(self.frame02, clicked=lambda: self.open_phonebook())
+        self.login = QtWidgets.QPushButton(self.frame02, clicked=lambda: self.open_phonebook(Login))
         self.login.setMinimumSize(QtCore.QSize(0, 50))
         self.login.setMaximumSize(QtCore.QSize(16777215, 50))
         font = QtGui.QFont()
@@ -96,7 +97,7 @@ class Ui_Login(object):
 
     def retranslateUi(self, Login):
         _translate = QtCore.QCoreApplication.translate
-        Login.setWindowTitle(_translate("Login", "MainWindow"))
+        Login.setWindowTitle(_translate("Login", "Login Page"))
         self.ip.setPlaceholderText(_translate("Login", "IP Address"))
         self.port.setPlaceholderText(_translate("Login", "Port"))
         self.login.setText(_translate("Login", "Login"))

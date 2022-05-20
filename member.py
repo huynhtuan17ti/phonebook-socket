@@ -19,6 +19,7 @@ class Ui_Member(object):
         self.show_frame.id.setText('ID: ' + data['user_id'])
         self.show_frame.name.setText('Name: ' + data['name'])
         self.show_frame.phone_num.setText('Phone number: ' + data['phone'])
+        # self.show_frame.email.setText('Email: ' + data['email'])
 
     
     def setupUi(self, Member, data, show_frame, connection):
