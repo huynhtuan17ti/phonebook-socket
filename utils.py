@@ -18,9 +18,7 @@ def wait_response(connection, decode_format):
         print('[ERROR] Client not repsonding!')
 
 def answer_response(connection, encode_format):
-    print('dang o answer response')
     connection.sendall("received".encode(encode_format))
-    print('cai nay da gui qua roi nay')
 
 def send_dict(connection, data_dict: Dict, encode_format: str):
     '''
@@ -92,7 +90,6 @@ def receive_file(connection, file_dir: str, decode_format: str, BUFFER_SIZE: int
             - BUFFER_SIZE: maximum capacity sent of a single iteration
     '''
     received = connection.recv(BUFFER_SIZE).decode(decode_format)
-    print(received)
     answer_response(connection, decode_format)
     print(f'[+] Receiving', end=' ')
     file_path, file_size = received.split()
@@ -110,3 +107,4 @@ def receive_file(connection, file_dir: str, decode_format: str, BUFFER_SIZE: int
             f.write(bytes_read)
 
     answer_response(connection, decode_format)
+    print('Successfully!')
