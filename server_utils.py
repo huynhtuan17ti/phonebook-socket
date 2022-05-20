@@ -12,7 +12,7 @@ def send_user_interface(connection, user_id: str):
     send_dict(connection, phone_book_data[user_id], cfg['FORMAT'])
 
 def send_user_thumbnail(connection, user_id: str):
-    send_file(connection, phone_book_data[user_id]['thumnail'], cfg['FORMAT'], cfg['BUFFER_SIZE'])
+    send_file(connection, phone_book_data[user_id]['thumbnail'], cfg['FORMAT'], cfg['BUFFER_SIZE'])
 
 def send_user_image(connection, user_id: str):    
     if user_id not in phone_book_data.keys():

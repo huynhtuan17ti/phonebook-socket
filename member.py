@@ -49,7 +49,7 @@ class Ui_Member(object):
         self.icon = QtWidgets.QPushButton(self.nested)
         self.icon.setMinimumSize(QtCore.QSize(80, 80))
         self.icon.setMaximumSize(QtCore.QSize(80, 80))
-        thumn = "border-image: url(" + data['thumnail'] + ");"
+        thumn = "border-image: url(" + data['thumbnail'] + ");"
         self.icon.setStyleSheet("border-radius: 40px;\n " + thumn)
         self.icon.setText("")
         self.icon.setIconSize(QtCore.QSize(100, 100))

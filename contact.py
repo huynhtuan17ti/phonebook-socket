@@ -13,9 +13,9 @@ class Ui_Phonebook(object):
         receive_thumbnails(connection)
 
         for item in data:
-            s = item['thumnail']
+            s = item['thumbnail']
             s = 'client_data' + s[s.index('/'):]
-            item['thumnail'] = s
+            item['thumbnail'] = s
 
             s = item['image']
             s = 'client_data' + s[s.index('/'):]
