@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'member.ui'
+# Form implementation generated from reading ui file '../socket_qt/member.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -11,11 +11,17 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Member(object):
-    def setupUi(self, Member):
+    def show_detail(self, data):
+        self.show_frame.id.setText('ID: ' + data['id'])
+        self.show_frame.name.setText('Name: ' + data['name'])
+        self.show_frame.phone_num.setText('Phone number: ' + data['phone'])
+    
+    def setupUi(self, Member, data, show_frame):
         Member.setObjectName("Member")
         Member.resize(300, 150)
         Member.setMinimumSize(QtCore.QSize(300, 150))
         Member.setMaximumSize(QtCore.QSize(300, 150))
+        self.show_frame = show_frame
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(Member)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -37,10 +43,10 @@ class Ui_Member(object):
         self.icon = QtWidgets.QPushButton(self.nested)
         self.icon.setMinimumSize(QtCore.QSize(80, 80))
         self.icon.setMaximumSize(QtCore.QSize(80, 80))
-        self.icon.setStyleSheet("border-radius: 40px;\n"
-"background-color: blue;\n"
-"")
+        thumn = "border-image: url(" + data['thumnail'] + ");"
+        self.icon.setStyleSheet("border-radius: 40px;\n " + thumn + "}")
         self.icon.setText("")
+        self.icon.setIconSize(QtCore.QSize(100, 100))
         self.icon.setFlat(False)
         self.icon.setObjectName("icon")
         self.horizontalLayout.addWidget(self.icon)
@@ -75,7 +81,7 @@ class Ui_Member(object):
         self.Name.setFont(font)
         self.Name.setObjectName("Name")
         self.verticalLayout.addWidget(self.Name)
-        self.detail = QtWidgets.QPushButton(self.frame)
+        self.detail = QtWidgets.QPushButton(self.frame, clicked=lambda: self.show_detail(data))
         self.detail.setMinimumSize(QtCore.QSize(0, 30))
         self.detail.setMaximumSize(QtCore.QSize(16777215, 30))
         self.detail.setStyleSheet("color: blue;\n"
@@ -87,6 +93,10 @@ class Ui_Member(object):
         self.verticalLayout_2.addWidget(self.nested)
 
         self.retranslateUi(Member)
+
+        self.ID.setText('ID: ' + data['user_id'])
+        self.Name.setText('Name: ' + data['name'])
+
         QtCore.QMetaObject.connectSlotsByName(Member)
 
     def retranslateUi(self, Member):

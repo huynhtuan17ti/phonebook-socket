@@ -19,18 +19,27 @@ class Ui_Phonebook(object):
         self.layout.setSpacing(15)
         self.layout.setAlignment(QtCore.Qt.AlignTop)
         data = ask_phone_book_data(connection)
-        
-        for item in data:
-            print(item)
 
-        for i in range(20):
+        receive_thumbnails(connection)
+
+        for item in data:
+            s = item['thumnail']
+            s = 'client_data' + s[s.index('/'):]
+            item['thumnail'] = s
+
+            s = item['image']
+            s = 'client_data' + s[s.index('/'):]
+            item['image'] = s
+    
+        for item in data:
             add = QtWidgets.QWidget()
             cur = Ui_Member()
-            cur.setupUi(add)
+            cur.setupUi(add, item, self.frame)
             self.layout.addWidget(add)
         
         self.scrollArea.setWidget(self.content)
         self.bound.layout().addWidget(self.scrollArea)
+
     def setupUi(self, Phonebook, connection):
         Phonebook.setObjectName("Phonebook")
         Phonebook.resize(800, 500)
