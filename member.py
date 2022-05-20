@@ -9,14 +9,19 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from client_utils import *
 
 class Ui_Member(object):
-    def show_detail(self, data):
-        self.show_frame.id.setText('ID: ' + data['id'])
+    def show_detail(self, data, connection):
+        receive_user_image(connection, data['user_id'])
+        img = "border-image: url(" + data['image'] + ");"
+        self.show_frame.image.setStyleSheet("border-radius: 80px;\n " + img)
+        self.show_frame.id.setText('ID: ' + data['user_id'])
         self.show_frame.name.setText('Name: ' + data['name'])
         self.show_frame.phone_num.setText('Phone number: ' + data['phone'])
+
     
-    def setupUi(self, Member, data, show_frame):
+    def setupUi(self, Member, data, show_frame, connection):
         Member.setObjectName("Member")
         Member.resize(300, 150)
         Member.setMinimumSize(QtCore.QSize(300, 150))
@@ -44,7 +49,7 @@ class Ui_Member(object):
         self.icon.setMinimumSize(QtCore.QSize(80, 80))
         self.icon.setMaximumSize(QtCore.QSize(80, 80))
         thumn = "border-image: url(" + data['thumnail'] + ");"
-        self.icon.setStyleSheet("border-radius: 40px;\n " + thumn + "}")
+        self.icon.setStyleSheet("border-radius: 40px;\n " + thumn)
         self.icon.setText("")
         self.icon.setIconSize(QtCore.QSize(100, 100))
         self.icon.setFlat(False)
@@ -81,7 +86,7 @@ class Ui_Member(object):
         self.Name.setFont(font)
         self.Name.setObjectName("Name")
         self.verticalLayout.addWidget(self.Name)
-        self.detail = QtWidgets.QPushButton(self.frame, clicked=lambda: self.show_detail(data))
+        self.detail = QtWidgets.QPushButton(self.frame, clicked=lambda: self.show_detail(data, connection))
         self.detail.setMinimumSize(QtCore.QSize(0, 30))
         self.detail.setMaximumSize(QtCore.QSize(16777215, 30))
         self.detail.setStyleSheet("color: blue;\n"

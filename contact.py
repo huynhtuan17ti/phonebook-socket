@@ -34,7 +34,7 @@ class Ui_Phonebook(object):
         for item in data:
             add = QtWidgets.QWidget()
             cur = Ui_Member()
-            cur.setupUi(add, item, self.frame)
+            cur.setupUi(add, item, self, connection)
             self.layout.addWidget(add)
         
         self.scrollArea.setWidget(self.content)
